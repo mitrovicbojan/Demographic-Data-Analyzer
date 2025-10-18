@@ -40,4 +40,16 @@ print(race_counts)
 male_rows = X[X['sex'] == 'Male']
 
 male_avg_age = male_rows['age'].mean().round(2)
-print(male_avg_age)
+#print(male_avg_age)
+
+#What is the percentage of people who have a Bachelor's degree?
+
+edu_counts = X['education'].value_counts().reset_index()
+
+edu_counts.columns = ['education', 'count']
+
+bs_deg_holder = edu_counts[edu_counts['education'] == 'Bachelors']['count'].sum()
+
+bs_deg_perc = (bs_deg_holder / edu_counts['count'].sum()) * 100 
+
+print("Percentage of people who have a Bachelor's degree is:", bs_deg_perc.round(2),"%")
