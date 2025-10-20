@@ -87,3 +87,36 @@ print(res_high_income_edu.round(2))
 
 #What percentage of people without advanced education make more than 50K?
 #note: write a function for this one
+
+without_adv_edu_nums = bs_nums[
+    ~bs_nums['education'].isin(['Bachelors', 'Masters', 'Doctorate'])
+]['count'].sum()
+
+high_income_without_deg = bs_nums[
+    ~bs_nums['education'].isin(['Bachelors', 'Masters', 'Doctorate']) &
+    (bs_nums['income'] == '>50K')
+]['count'].sum()
+
+res = (high_income_without_deg / without_adv_edu_nums) * 100
+
+print(res.round(2))
+
+#What is the minimum number of hours a person works per week?
+#hours-per-week
+
+hours_per_week = df['hours-per-week']
+min_hours = min(hours_per_week)
+
+print(min_hours)
+
+#What percentage of the people who work the minimum number of hours per week have a salary of more than 50K?
+
+min_workers = df[df['hours-per-week'] == min_hours]
+
+# Calculate the percentage earning >50K
+# .shape[0] → counts the number of rows in each group
+percentage = (min_workers[min_workers['income'] == '>50K'].shape[0] / min_workers.shape[0]) * 100
+
+print(f"Percentage of people working {min_hours} hours per week earning >50K: {percentage:.2f}%")
+
+# What country has the highest percentage of people that earn >50K and what is that percentage?
