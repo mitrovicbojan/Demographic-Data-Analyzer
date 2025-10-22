@@ -120,3 +120,25 @@ percentage = (min_workers[min_workers['income'] == '>50K'].shape[0] / min_worker
 print(f"Percentage of people working {min_hours} hours per week earning >50K: {percentage:.2f}%")
 
 # What country has the highest percentage of people that earn >50K and what is that percentage?
+
+#total count
+total_by_country = df['native-country'].value_counts()
+
+#count with high income
+high_income = df[df['income'] == '>50K']
+country_high_income = high_income['native-country'].value_counts()
+
+#create new dataFrame
+high_income_stats = pd.DataFrame({
+    'total': total_by_country,
+    'high_income': country_high_income
+}).fillna(0)
+
+# Calculate percentage
+high_income_stats['percent_high_income'] = (
+    high_income_stats['high_income'] / high_income_stats['total'] * 100
+).round(2)
+
+top_stats = max(high_income_stats['percent_high_income'])
+
+print(top_stats)
