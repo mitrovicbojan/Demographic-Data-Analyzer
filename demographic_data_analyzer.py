@@ -109,7 +109,8 @@ min_hours = min(hours_per_week)
 
 print(min_hours)
 
-#What percentage of the people who work the minimum number of hours per week have a salary of more than 50K?
+#What percentage of the people who work the minimum number of hours per week have a salary of 
+# more than 50K?
 
 min_workers = df[df['hours-per-week'] == min_hours]
 
@@ -142,3 +143,12 @@ high_income_stats['percent_high_income'] = (
 top_stats = max(high_income_stats['percent_high_income'])
 
 print(top_stats)
+
+#Identify the most popular occupation for those who earn >50K in India.
+# Filter for people from India earning >50K
+india_high_income = df[(df['native-country'] == 'India') & (df['income'] == '>50K')]
+
+# Get the most common occupation
+most_popular_occupation = india_high_income['occupation'].value_counts().idxmax()
+
+print("The most popular occupation for >50K earners in India is:", most_popular_occupation)
